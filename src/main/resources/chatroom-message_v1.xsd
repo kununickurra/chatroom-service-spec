@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- edited with XMLSpy v2015 rel. 3 (x64) (http://www.altova.com) by Quentin Dallons (EDF Luminus Hasselt) -->
+<xs:schema  xmlns:xs="http://www.w3.org/2001/XMLSchema" 
+			xmlns:message="http://cgi.com/chatroom-message/v1/" 
+			targetNamespace="http://cgi.com/chatroom-message/v1/" 
+			elementFormDefault="qualified" 
+			attributeFormDefault="unqualified">
+	<!--  Can be used separately -->
+	<xs:simpleType name="MessageIdType">
+    	<xs:annotation>
+			<xs:documentation>Unique identifier</xs:documentation>
+		</xs:annotation>
+    	<xs:restriction base="xs:long">
+    		<xs:minExclusive value="0"></xs:minExclusive>
+    	</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="MessageContentType">
+		<xs:annotation>
+			<xs:documentation>Content, body of the message</xs:documentation>
+		</xs:annotation>
+		<xs:restriction base="xs:string">
+		    <xs:minLength value="1"></xs:minLength>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="Nickname">
+		<xs:annotation>
+			<xs:documentation>Nick name (from:)</xs:documentation>
+		</xs:annotation>
+		<xs:restriction base="xs:string">
+		    <xs:minLength value="1"></xs:minLength>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:complexType name="MessageOriginType">
+		<xs:annotation>
+			<xs:documentation>Technical information concerning the origin of the message </xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="userAgent" type="xs:string"/>
+			<xs:element name="sentDate" type="xs:dateTime"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="MessageType">
+		<xs:annotation>
+			<xs:documentation>Complete chat message definition</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="messageId" type="message:MessageIdType"/>
+			<xs:element name="from" type="message:Nickname"/>
+			<xs:element name="content" type="message:MessageContentType"/>
+			<xs:element name="origin" type="message:MessageOriginType"/>
+			<xs:element name="creationDate" type="xs:dateTime"/>
+		</xs:sequence>
+	</xs:complexType>
+</xs:schema>

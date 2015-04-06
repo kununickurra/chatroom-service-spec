@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jaxb:bindings version="2.0"
+               xmlns:jaxb="http://java.sun.com/xml/ns/jaxb"
+               jaxb:extensionBindingPrefixes="xjc">
+    <jaxb:bindings schemaLocation="chatroom-request_v1.xsd">
+        <jaxb:schemaBindings>
+            <jaxb:package name="com.cgi.service.chatroom.request.dto.v1"/>
+            <jaxb:nameXmlTransform>
+                <jaxb:elementName suffix="DTO"/>
+            </jaxb:nameXmlTransform>
+        </jaxb:schemaBindings>
+    </jaxb:bindings>
+    <jaxb:bindings schemaLocation="chatroom-response_v1.xsd">
+        <jaxb:schemaBindings>
+            <jaxb:package name="com.cgi.service.chatroom.response.dto.v1"/>
+            <jaxb:nameXmlTransform>
+                <jaxb:elementName suffix="DTO"/>
+            </jaxb:nameXmlTransform>
+        </jaxb:schemaBindings>
+    </jaxb:bindings>
+    <jaxb:bindings schemaLocation="chatroom-message_v1.xsd">
+        <jaxb:schemaBindings>
+            <jaxb:package name="com.cgi.service.chatroom.type.v1"/>
+            <jaxb:nameXmlTransform>
+                <jaxb:elementName suffix="DTO"/>
+            </jaxb:nameXmlTransform>
+        </jaxb:schemaBindings>
+    </jaxb:bindings>
+</jaxb:bindings>

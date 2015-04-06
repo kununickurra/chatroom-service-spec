@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<wsdl:definitions xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" 
+				  xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/" 
+				  xmlns:xs="http://www.w3.org/2001/XMLSchema" 
+				  xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" 
+				  xmlns:msg="http://services.cgi.com/chatroom-message/v1/" 
+				  xmlns:srv="http://services.cgi.com/chatroom/service/v1/" 
+				  xmlns:req="http://services.cgi.com/chatroom/request/v1/" 
+				  xmlns:res="http://services.cgi.com/chatroom/response/v1/" 
+				  name="ChatroomService" 
+				  targetNamespace="http://services.cgi.com/chatroom/service/v1/">
+	<wsdl:types>
+		<xs:schema>
+			<xs:import namespace="http://services.cgi.com/chatroom/request/v1/" schemaLocation="chatroom-request_v1.xsd"/>
+			<xs:import namespace="http://services.cgi.com/chatroom/response/v1/" schemaLocation="chatroom-response_v1.xsd"/>
+		</xs:schema>
+	</wsdl:types>
+	<wsdl:message name="publishRequest">
+		<wsdl:part name="parameters" element="req:publishRequest"/>
+		<wsdl:part name="header" element="req:header"/>
+	</wsdl:message>
+	<wsdl:message name="publishResponse">
+		<wsdl:part name="parameters" element="res:pulishResponse"/>
+	</wsdl:message>
+	<wsdl:message name="publishFault">
+		<wsdl:part name="fault" element="res:chatroomSecurityException"/>
+	</wsdl:message>
+	<wsdl:message name="getMessagesFromDateRequest">
+		<wsdl:part name="parameters" element="req:getMessagesFromDateRequest"/>
+	</wsdl:message>
+	<wsdl:message name="getMessagesFromDateResponse">
+		<wsdl:part name="parameters" element="res:getMessagesFromDateResponse"/>
+	</wsdl:message>
+	<wsdl:message name="getMessagesReceivedAfterThisIDRequest">
+		<wsdl:part name="parameters" element="req:getMessagesReceivedAfterThisIDRequest"/>
+	</wsdl:message>
+	<wsdl:message name="getMessagesReceivedAfterThisIDResponse">
+		<wsdl:part name="parameters" element="res:getMessagesReceivedAfterThisIDResponse"/>
+	</wsdl:message>
+	<wsdl:portType name="ChatroomService">
+		<wsdl:operation name="publish">
+			<wsdl:documentation>Publish a message to the chat room service.
+This operation is only accessible to authorized user agents.</wsdl:documentation>
+			<wsdl:input message="srv:publishRequest"/>
+			<wsdl:output message="srv:publishResponse"/>
+			<wsdl:fault name="fault" message="srv:publishFault"/>
+		</wsdl:operation>
+		<wsdl:operation name="getMessagesFromDate">
+			<wsdl:documentation>Get all the message that have been created after a given date/time.</wsdl:documentation>
+			<wsdl:input message="srv:getMessagesFromDateRequest"/>
+			<wsdl:output message="srv:getMessagesFromDateResponse"/>
+		</wsdl:operation>
+		<wsdl:operation name="getMessagesReceivedAfterThisID">
+			<wsdl:input message="srv:getMessagesReceivedAfterThisIDRequest"/>
+			<wsdl:output message="srv:getMessagesReceivedAfterThisIDResponse"/>
+		</wsdl:operation>
+	</wsdl:portType>
+	<wsdl:binding name="ChatroomBindings" type="srv:ChatroomService">
+		<soap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"/>
+		<wsdl:operation name="publish">
+			<soap:operation soapAction="http://services.cgi.com/chatroom/service/v1/publish"/>
+			<wsdl:input>
+				<soap:header message="srv:publishRequest" part="header" use="literal"/>
+				<soap:body use="literal"/>
+			</wsdl:input>
+			<wsdl:output>
+				<soap:body use="literal"/>
+			</wsdl:output>
+			<wsdl:fault name="fault">
+				<soap:fault name="fault" use="literal"/>
+			</wsdl:fault>
+		</wsdl:operation>
+		<wsdl:operation name="getMessagesFromDate">
+			<soap:operation soapAction="http://services.cgi.com/chatroom/service/v1/getMessagesFromDate"/>
+			<wsdl:input>
+				<soap:body use="literal"/>
+			</wsdl:input>
+			<wsdl:output>
+				<soap:body use="literal"/>
+			</wsdl:output>
+		</wsdl:operation>
+		<wsdl:operation name="getMessagesReceivedAfterThisID">
+			<soap:operation soapAction="http://services.cgi.com/chatroom/service/v1/getMessagesReceivedAfterThisID"/>
+			<wsdl:input>
+				<soap:body use="literal"/>
+			</wsdl:input>
+			<wsdl:output>
+				<soap:body use="literal"/>
+			</wsdl:output>
+		</wsdl:operation>
+	</wsdl:binding>
+	<wsdl:service name="ChatroomService">
+		<wsdl:port name="ChatroomPort" binding="srv:ChatroomBindings">
+			<soap:address location="http://services.cgi.com/chatroom"/>
+		</wsdl:port>
+	</wsdl:service>
+</wsdl:definitions>

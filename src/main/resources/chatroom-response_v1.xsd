@@ -27,7 +27,7 @@
 			</xs:sequence>
 		</xs:complexType>
 	</xs:element>
-	<xs:element name="pulishResponse">
+	<xs:element name="publishResponse">
 		<xs:complexType>
 			<xs:sequence>
 				<xs:element name="message" type="chatmsg:MessageType" minOccurs="1" maxOccurs="1"/>

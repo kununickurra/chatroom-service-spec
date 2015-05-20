@@ -9,7 +9,10 @@
     <packaging>jar</packaging>
     <version>0.0.1-SNAPSHOT</version>
     <properties>
+        <java.version>1.7</java.version>
+        <maven-compiler-plugin.version>3.3</maven-compiler-plugin.version>
         <wsdl>chatroom_v1.wsdl</wsdl>
+        <xjb>chatroom_v1.xjb</xjb>
         <jaxb2.basics.version>0.6.4</jaxb2.basics.version>
         <org.apache.cxf.version>2.7.3</org.apache.cxf.version>
         <com.sun.xml.bind.version>2.2.7</com.sun.xml.bind.version>
@@ -37,7 +40,7 @@
                                     <includes>
                                         <include>**/${wsdl}</include>
                                         <include>**/**.xsd</include>
-                                        <include>**/chatroom_v1.xjb</include>
+                                        <include>**/${xjb}</include>
                                     </includes>
                                 </resource>
                             </resources>
@@ -60,16 +63,19 @@
                                     <wsdl>${project.build.directory}/resources/${wsdl}</wsdl>
                                     <bindingFiles>
                                         <bindingFile>
-                                            ${project.build.directory}/resources/chatroom_v1.xjb
+                                            ${project.build.directory}/resources/${xjb}
                                         </bindingFile>
-									</bindingFiles>
+                                    </bindingFiles>
                                     <packagenames>
-                                        <packagename>http://services.cgi.com/chatroom/service/v1/=com.cgi.service.chatroom.v1</packagename>
+                                        <packagename>
+                                            http://services.cgi.com/chatroom/service/v1/=com.cgi.service.chatroom.v1
+                                        </packagename>
                                     </packagenames>
                                 </wsdlOption>
                             </wsdlOptions>
                             <defaultOptions>
                                 <extraargs>
+                                    <!-- Add a full constructor -->
                                     <extraarg>-xjc-Xvalue-constructor</extraarg>
                                 </extraargs>
                             </defaultOptions>
@@ -86,6 +92,16 @@
                         <version>3.0</version>
                     </dependency>
                 </dependencies>
+            </plugin>
+            <!-- Force compilation in version defined in java.version property -->
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <version>${maven-compiler-plugin.version}</version>
+                <configuration>
+                    <source>${java.version}</source>
+                    <target>${java.version}</target>
+                </configuration>
             </plugin>
         </plugins>
     </build>

@@ -20,7 +20,7 @@
 		<wsdl:part name="header" element="req:header"/>
 	</wsdl:message>
 	<wsdl:message name="publishResponse">
-		<wsdl:part name="parameters" element="res:pulishResponse"/>
+		<wsdl:part name="parameters" element="res:publishResponse"/>
 	</wsdl:message>
 	<wsdl:message name="publishFault">
 		<wsdl:part name="fault" element="res:chatroomSecurityException"/>
